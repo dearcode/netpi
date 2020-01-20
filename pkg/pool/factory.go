@@ -18,9 +18,9 @@ const (
 )
 
 type connQueue struct {
-	jobID string
-	conns []proxyConn
-	last  time.Time
+	workerID string
+	conns    []proxyConn
+	last     time.Time
 }
 
 type proxyConn struct {
@@ -43,7 +43,7 @@ func init() {
 	}
 }
 
-func (f *factory) Get(jobID string, t poolType) (proxyConn, bool) {
+func (f *factory) Get(workerID string, t poolType) (proxyConn, bool) {
 	f.Lock()
 	defer f.Unlock()
 
@@ -52,7 +52,7 @@ func (f *factory) Get(jobID string, t poolType) (proxyConn, bool) {
 		cq = f.jobs
 	}
 
-	q, ok := cq[jobID]
+	q, ok := cq[workerID]
 	if !ok {
 		return proxyConn{}, false
 	}
@@ -67,20 +67,20 @@ func (f *factory) Get(jobID string, t poolType) (proxyConn, bool) {
 
 }
 
-func (f *factory) GetWorker(jobID string) (net.Conn, bool) {
-	w, ok := f.Get(jobID, poolTypeWorker)
+func (f *factory) GetWorker(workerID string) (net.Conn, bool) {
+	w, ok := f.Get(workerID, poolTypeWorker)
 	if !ok {
 		return nil, false
 	}
 	return w.conn, true
 }
 
-func (f *factory) PutWorker(jobID string, conn net.Conn) {
-	f.Put(jobID, conn, poolTypeWorker)
-    log.Infof("worker:%v online job:%v", conn, jobID)
+func (f *factory) PutWorker(workerID string, conn net.Conn) {
+	f.Put(workerID, conn, poolTypeWorker)
+	log.Infof("worker:%v online worker:%v", conn, workerID)
 }
 
-func (f *factory) Put(jobID string, conn net.Conn, t poolType) {
+func (f *factory) Put(workerID string, conn net.Conn, t poolType) {
 	f.Lock()
 	defer f.Unlock()
 
@@ -94,14 +94,14 @@ func (f *factory) Put(jobID string, conn net.Conn, t poolType) {
 		last: time.Now(),
 	}
 
-	q, ok := cq[jobID]
+	q, ok := cq[workerID]
 	if !ok {
 		aq := &connQueue{
-			jobID: jobID,
-			conns: []proxyConn{c},
-			last:  time.Now(),
+			workerID: workerID,
+			conns:    []proxyConn{c},
+			last:     time.Now(),
 		}
-		cq[jobID] = aq
+		cq[workerID] = aq
 		return
 	}
 
@@ -126,12 +126,12 @@ func (f *factory) Jobs() []meta.Job {
 	return js
 }
 
-func (f *factory) Wait(jobID string, conn net.Conn) net.Conn {
-	f.Put(jobID, conn, poolTypeJob)
-	conn, ok := f.GetWorker(jobID)
+func (f *factory) Wait(workerID string, conn net.Conn) net.Conn {
+	f.Put(workerID, conn, poolTypeJob)
+	conn, ok := f.GetWorker(workerID)
 	for !ok {
-		log.Infof("jobID:%v get worker failed", jobID)
-		conn, ok = f.GetWorker(jobID)
+		log.Infof("workerID:%v get worker failed", workerID)
+		conn, ok = f.GetWorker(workerID)
 		time.Sleep(time.Second)
 	}
 

@@ -24,7 +24,7 @@ func New(token string) *Proxy {
 	}
 }
 
-func (s *Proxy) String() string{
+func (s *Proxy) String() string {
 	return s.token
 }
 

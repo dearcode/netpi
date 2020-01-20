@@ -17,9 +17,9 @@ type server struct {
 	proxy     net.Conn
 }
 
-func newServer(localAddr, proxyAddr, jobID string) *server {
+func newServer(localAddr, proxyAddr, workerID string) *server {
 	return &server{
-		id:        jobID,
+		id:        workerID,
 		localAddr: localAddr,
 		proxyAddr: proxyAddr,
 	}
@@ -43,9 +43,9 @@ func (s *server) Connect() error {
 	id := fmt.Sprintf("%*s", meta.MaxTokenLen, s.id)
 
 	_, err = conn.Write([]byte(id))
-    if err != nil {
-        log.Errorf("write %v, buf:%v, error:%v", s.proxyAddr, id, err)
-    }
+	if err != nil {
+		log.Errorf("write %v, buf:%v, error:%v", s.proxyAddr, id, err)
+	}
 
 	return err
 }

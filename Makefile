@@ -2,13 +2,16 @@ cmd := $(shell ls cmd/)
 
 all: $(cmd)
 
-GitHash := github.com/dearcode/doodle/util.GitHash
-GitTime := github.com/dearcode/doodle/util.GitTime
-GitMessage := github.com/dearcode/doodle/util.GitMessage
+Vendor= github.com/dearcode/netpi/vendor/
+Project = $(Vendor)github.com/dearcode/doodle/service/debug.Project
+GitHash = $(Vendor)github.com/dearcode/doodle/service/debug.GitHash
+GitTime = $(Vendor)github.com/dearcode/doodle/service/debug.GitTime
+GitMessage = $(Vendor)github.com/dearcode/doodle/service/debug.GitMessage
 
 
+LDFLAGS += -X "$(Project)=github.com/dearcode/netpi"
 LDFLAGS += -X "$(GitHash)=$(shell git log --pretty=format:'%H' -1)"
-LDFLAGS += -X "$(GitTime)=$(shell git log --pretty=format:'%cd' -1)"
+LDFLAGS += -X "$(GitTime)=$(shell git log --pretty=format:'%ct' -1)"
 LDFLAGS += -X "$(GitMessage)=$(shell git log --pretty=format:'%cn %s %b' -1)"
 
 source := $(shell ls -ld */|awk '$$NF !~ /bin\/|logs\/|config\/|_vendor\/|vendor\/|web\/|Godeps\/|docs\// {printf $$NF" "}')

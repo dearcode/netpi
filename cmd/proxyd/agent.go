@@ -42,7 +42,7 @@ func (s *agentServer) Run() {
 
 		id := strings.TrimSpace(string(buf))
 		pool.Factory.PutWorker(id, conn)
-        log.Infof("%v new worker:%v from:%v", s, id,  conn.RemoteAddr())
+		log.Infof("%v new worker:%v from:%v", s, id, conn.RemoteAddr())
 	}
 
 }
