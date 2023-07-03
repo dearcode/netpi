@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 
-	"github.com/dearcode/crab/log"
+	"dearcode.net/crab/log"
 
-	"github.com/dearcode/netpi/pkg/agent"
+	"dearcode.net/netpi/pkg/agent"
 )
 
 var (

@@ -4,9 +4,9 @@ import (
 	"io"
 	"net"
 
-	"github.com/dearcode/crab/log"
+	"dearcode.net/crab/log"
 
-	"github.com/dearcode/netpi/pkg/pool"
+	"dearcode.net/netpi/pkg/pool"
 )
 
 type transport struct {

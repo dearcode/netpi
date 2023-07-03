@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 
-	"github.com/dearcode/crab/log"
-	"github.com/dearcode/doodle/service"
+	"dearcode.net/crab/log"
+	"dearcode.net/doodle/pkg/service"
 
-	_ "github.com/dearcode/netpi/pkg/pool"
-	"github.com/dearcode/netpi/pkg/proxy"
+	_ "dearcode.net/netpi/pkg/pool"
+	"dearcode.net/netpi/pkg/proxy"
 )
 
 type server struct {

@@ -5,8 +5,8 @@ import (
 	"io"
 	"net"
 
-	"github.com/dearcode/crab/log"
-	"github.com/dearcode/netpi/pkg/meta"
+	"dearcode.net/crab/log"
+	"dearcode.net/netpi/pkg/meta"
 )
 
 type server struct {

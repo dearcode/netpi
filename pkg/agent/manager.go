@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/dearcode/crab/http/client"
-	"github.com/dearcode/crab/log"
+	"dearcode.net/crab/http/client"
+	"dearcode.net/crab/log"
 
-	"github.com/dearcode/netpi/pkg/meta"
+	"dearcode.net/netpi/pkg/meta"
 )
 
 type jobResp struct {

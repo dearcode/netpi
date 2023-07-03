@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/dearcode/crab/log"
+	"dearcode.net/crab/log"
 
-	"github.com/dearcode/netpi/pkg/meta"
+	"dearcode.net/netpi/pkg/meta"
 )
 
 type poolType int

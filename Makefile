@@ -2,14 +2,14 @@ cmd := $(shell ls cmd/)
 
 all: $(cmd)
 
-Vendor= github.com/dearcode/netpi/vendor/
-Project = $(Vendor)github.com/dearcode/doodle/service/debug.Project
-GitHash = $(Vendor)github.com/dearcode/doodle/service/debug.GitHash
-GitTime = $(Vendor)github.com/dearcode/doodle/service/debug.GitTime
-GitMessage = $(Vendor)github.com/dearcode/doodle/service/debug.GitMessage
+Vendor= dearcode.net/netpi/vendor/
+Project = $(Vendor)dearcode.net/doodle/pkg/service/debug.Project
+GitHash = $(Vendor)dearcode.net/doodle/pkg/service/debug.GitHash
+GitTime = $(Vendor)dearcode.net/doodle/pkg/service/debug.GitTime
+GitMessage = $(Vendor)dearcode.net/doodle/pkg/service/debug.GitMessage
 
 
-LDFLAGS += -X "$(Project)=github.com/dearcode/netpi"
+LDFLAGS += -X "$(Project)=dearcode.net/netpi"
 LDFLAGS += -X "$(GitHash)=$(shell git log --pretty=format:'%H' -1)"
 LDFLAGS += -X "$(GitTime)=$(shell git log --pretty=format:'%ct' -1)"
 LDFLAGS += -X "$(GitMessage)=$(shell git log --pretty=format:'%cn %s %b' -1)"

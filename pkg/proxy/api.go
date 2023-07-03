@@ -1,11 +1,11 @@
 package proxy
 
 import (
-	"github.com/dearcode/crab/log"
-	"github.com/dearcode/doodle/service"
+	"dearcode.net/crab/log"
+	"dearcode.net/doodle/pkg/service"
 
-	"github.com/dearcode/netpi/pkg/meta"
-	"github.com/dearcode/netpi/pkg/pool"
+	"dearcode.net/netpi/pkg/meta"
+	"dearcode.net/netpi/pkg/pool"
 )
 
 type Job struct {

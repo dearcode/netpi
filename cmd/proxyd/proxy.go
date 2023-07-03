@@ -3,9 +3,9 @@ package main
 import (
 	"net"
 
-	"github.com/dearcode/crab/log"
+	"dearcode.net/crab/log"
 
-	"github.com/dearcode/netpi/pkg/proxy"
+	"dearcode.net/netpi/pkg/proxy"
 )
 
 type proxyServer struct {
